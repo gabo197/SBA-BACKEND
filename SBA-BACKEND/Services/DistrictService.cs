@@ -13,14 +13,15 @@ using System;
  	public class DistrictService : IDistrictService
  	{
  		private readonly IDistrictRepository _districtRepository;
- 		private IUnitOfWork _unitOfWork;
-        public DistrictService(IDistrictRepository object1, IUnitOfWork object2)
- 		{
- 			this._districtRepository = object1;
- 			this._unitOfWork = object2;
- 		}
+ 		private readonly IUnitOfWork _unitOfWork;
 
- 		public async Task<DistrictResponse> DeleteAsync(int id)
+        public DistrictService(IDistrictRepository districtRepository, IUnitOfWork unitOfWork)
+        {
+            _districtRepository = districtRepository;
+            _unitOfWork = unitOfWork;
+        }
+
+        public async Task<DistrictResponse> DeleteAsync(int id)
  		{
  			var existingDistrict = await _districtRepository.FindById(id);
  

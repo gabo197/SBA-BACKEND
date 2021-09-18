@@ -5,7 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SBA_BACKEND.Domain.Persistence.Repositories
-{	interface ISpecialityTechnicalRepository
+{
+	public interface ISpecialityTechnicalRepository
 	{
 		Task AddAsync(SpecialityTechnical specialityTechnical);
 		Task<SpecialityTechnical> FindById(int specialityId, int technicalId);

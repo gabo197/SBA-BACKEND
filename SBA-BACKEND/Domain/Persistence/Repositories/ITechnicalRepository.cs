@@ -5,7 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SBA_BACKEND.Domain.Persistence.Repositories
-{	interface ITechnicalRepository
+{
+	public interface ITechnicalRepository
 	{
 		Task<IEnumerable<Technical>> ListAsync();
 		Task AddAsync(Technical technical);
