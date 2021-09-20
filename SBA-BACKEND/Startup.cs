@@ -42,7 +42,7 @@ namespace SBA_BACKEND
 
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseMySQL(Configuration.GetConnectionString("HerokuConnectionMySQL"));
                 //options.UseMySQL(Configuration.GetConnectionString("SmarterAspMySQLConnection"));
             });
 
@@ -82,7 +82,7 @@ namespace SBA_BACKEND
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.IsProduction())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
