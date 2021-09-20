@@ -27,7 +27,7 @@ using AutoMapper;
  			_mapper = mapper;
  		}
  
- 		[SwaggerOperation(Tags = new[] { "specialities" })]
+ 		[SwaggerOperation(Tags = new[] { "specialties" })]
  		[HttpPost]
  		[ProducesResponseType(typeof(SpecialityResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]
@@ -44,7 +44,7 @@ using AutoMapper;
  			return Ok(specialityResource);
  		}
  
- 		[SwaggerOperation(Tags = new[] { "specialities" })]
+ 		[SwaggerOperation(Tags = new[] { "specialties" })]
  		[HttpPut("{specialityId}")]
  		[ProducesResponseType(typeof(SpecialityResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]
@@ -62,7 +62,7 @@ using AutoMapper;
  			return Ok(specialityResource);
  		}
  
- 		[SwaggerOperation(Tags = new[] { "specialities" })]
+ 		[SwaggerOperation(Tags = new[] { "specialties" })]
  		[HttpGet("{specialityId}")]
  		[ProducesResponseType(typeof(SpecialityResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]
@@ -78,7 +78,7 @@ using AutoMapper;
  			return Ok(specialityResource);
  		}
  
- 		[SwaggerOperation(Tags = new[] { "specialities" })]
+ 		[SwaggerOperation(Tags = new[] { "specialties" })]
  		[HttpDelete("{specialityId}")]
  		[ProducesResponseType(typeof(SpecialityResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]

@@ -14,7 +14,7 @@ using AutoMapper;
  
  namespace SBA_BACKEND.Controllers
  {
- 	[Route("api/technical")]
+ 	[Route("api/technician")]
  	[ApiController]
  	public class TechnicalController : ControllerBase
  	{
@@ -27,7 +27,7 @@ using AutoMapper;
  			_mapper = mapper;
  		}
  
- 		[SwaggerOperation(Tags = new[] { "technicals" })]
+ 		[SwaggerOperation(Tags = new[] { "technicians" })]
  		[HttpPost]
  		[ProducesResponseType(typeof(TechnicalResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]
@@ -44,8 +44,8 @@ using AutoMapper;
  			return Ok(technicalResource);
  		}
  
- 		[SwaggerOperation(Tags = new[] { "technicals" })]
- 		[HttpPut("{technicalId}")]
+ 		[SwaggerOperation(Tags = new[] { "technicians" })]
+ 		[HttpPut("{technicianId}")]
  		[ProducesResponseType(typeof(TechnicalResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]
  		public async Task<IActionResult> PutAsync(int technicalId, [FromBody] SaveTechnicalResource resource)
@@ -62,8 +62,8 @@ using AutoMapper;
  			return Ok(technicalResource);
  		}
  
- 		[SwaggerOperation(Tags = new[] { "technicals" })]
- 		[HttpGet("{technicalId}")]
+ 		[SwaggerOperation(Tags = new[] { "technicians" })]
+ 		[HttpGet("{technicianId}")]
  		[ProducesResponseType(typeof(TechnicalResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]
  		public async Task<IActionResult> GetAsync(int technicalId)
@@ -78,8 +78,8 @@ using AutoMapper;
  			return Ok(technicalResource);
  		}
  
- 		[SwaggerOperation(Tags = new[] { "technicals" })]
- 		[HttpDelete("{technicalId}")]
+ 		[SwaggerOperation(Tags = new[] { "technicians" })]
+ 		[HttpDelete("{technicianId}")]
  		[ProducesResponseType(typeof(TechnicalResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]
  		public async Task<IActionResult> DeleteAsync(int technicalId)
