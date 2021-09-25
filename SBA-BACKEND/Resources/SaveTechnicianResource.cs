@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SBA_BACKEND.Resources
 {
-    public class TechnicalResource : UserResource
+    public class SaveTechnicianResource : SaveUserResource
     {
         public string Description { get; set; }
     }

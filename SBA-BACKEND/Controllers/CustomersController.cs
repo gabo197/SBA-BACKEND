@@ -16,12 +16,12 @@ using AutoMapper;
  {
  	[Route("api/customer")]
  	[ApiController]
- 	public class CustomerController : ControllerBase
+ 	public class CustomersController : ControllerBase
  	{
  		private readonly ICustomerService _customerService;
  		private readonly IMapper _mapper;
  
- 		public CustomerController(ICustomerService customerService, IMapper mapper)
+ 		public CustomersController(ICustomerService customerService, IMapper mapper)
  		{
  			_customerService = customerService;
  			_mapper = mapper;

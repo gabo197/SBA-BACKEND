@@ -10,7 +10,7 @@ using System;
  
  namespace SBA_BACKEND.Services
  {
- 	public class SpecialityTechnicalService
+ 	public class SpecialityTechnicianService
  	{
  		
  	}

@@ -16,12 +16,12 @@ using AutoMapper;
  {
  	[Route("api/opinion")]
  	[ApiController]
- 	public class OpinionController : ControllerBase
+ 	public class OpinionsController : ControllerBase
  	{
  		private readonly IOpinionService _opinionService;
  		private readonly IMapper _mapper;
  
- 		public OpinionController(IOpinionService opinionService, IMapper mapper)
+ 		public OpinionsController(IOpinionService opinionService, IMapper mapper)
  		{
  			_opinionService = opinionService;
  			_mapper = mapper;

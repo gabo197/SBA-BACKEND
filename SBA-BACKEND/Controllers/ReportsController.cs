@@ -16,12 +16,12 @@ using AutoMapper;
  {
  	[Route("api/report")]
  	[ApiController]
- 	public class ReportController : ControllerBase
+ 	public class ReportsController : ControllerBase
  	{
  		private readonly IReportService _reportService;
  		private readonly IMapper _mapper;
  
- 		public ReportController(IReportService reportService, IMapper mapper)
+ 		public ReportsController(IReportService reportService, IMapper mapper)
  		{
  			_reportService = reportService;
  			_mapper = mapper;

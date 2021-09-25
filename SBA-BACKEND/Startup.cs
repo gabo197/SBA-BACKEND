@@ -52,8 +52,8 @@ namespace SBA_BACKEND
             services.AddScoped<IOpinionRepository, OpinionRepository>();
             services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<ISpecialityRepository, SpecialityRepository>();
-            services.AddScoped<ISpecialityTechnicalRepository, SpecialityTechnicalRepository>();
-            services.AddScoped<ITechnicalRepository, TechnicalRepository>();
+            services.AddScoped<ISpecialityTechnicianRepository, SpecialityTechnicianRepository>();
+            services.AddScoped<ITechnicianRepository, TechnicianRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
 
@@ -62,8 +62,8 @@ namespace SBA_BACKEND
             services.AddScoped<IOpinionService, OpinionService>();
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<ISpecialityService, SpecialityService>();
-            //services.AddScoped<ISpecialityTechnicalService, SpecialityTechnicalService>();
-            services.AddScoped<ITechnicalService, TechnicalService>();
+            //services.AddScoped<ISpecialityTechnicianService, SpecialityTechnicianService>();
+            services.AddScoped<ITechnicianService, TechnicianService>();
             services.AddScoped<IUserService, UserService>();
 
             // Apply Endpoints Naming Convention
