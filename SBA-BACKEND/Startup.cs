@@ -72,8 +72,8 @@ namespace SBA_BACKEND
 
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseMySQL(Configuration.GetConnectionString("HerokuConnectionMySQL"));
-                //options.UseMySQL(Configuration.GetConnectionString("SmarterAspMySQLConnection"));
+                //options.UseMySQL(Configuration.GetConnectionString("HerokuConnectionMySQL"));
+                options.UseMySQL(Configuration.GetConnectionString("SmarterAspMySQLConnection"));
             });
 
             // Dependency Injection Configuration
