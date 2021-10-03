@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SBA_BACKEND.Resources
+namespace SBA_BACKEND.Settings
 {
-    public class TechnicianResource : ProfileResource
+    public class AppSettings
     {
-
+        public string Secret { get; set; }
     }
 }

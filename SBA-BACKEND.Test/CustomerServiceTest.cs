@@ -24,8 +24,13 @@ namespace SBA_BACKEND.Test
             var mockCustomerRepository = GetDefaultICustomerRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var customerId = 1;
+            Customer c = new()
+            {
+                Id = 1,
+                Name = "Jose"
+            };
             mockCustomerRepository.Setup(r => r.FindById(customerId))
-                .Returns(Task.FromResult<Customer>(null));
+                .Returns(Task.FromResult<Customer>(c));
 
             var service = new CustomerService(mockCustomerRepository.Object, mockUnitOfWork.Object);
 

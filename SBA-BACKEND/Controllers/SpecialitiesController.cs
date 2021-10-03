@@ -11,84 +11,103 @@ using AutoMapper;
  using SBA_BACKEND.Resources;
  using SBA_BACKEND.API.Extensions;
  using Swashbuckle.Swagger;
- 
- namespace SBA_BACKEND.Controllers
+using Microsoft.AspNetCore.Authorization;
+
+namespace SBA_BACKEND.Controllers
  {
- 	[Route("api/speciality")]
+    [Authorize]
+    [Route("api/specialty")]
  	[ApiController]
- 	public class SpecialitiesController : ControllerBase
+ 	public class SpecialtiesController : ControllerBase
  	{
- 		private readonly ISpecialityService _specialityService;
+ 		private readonly ISpecialtyService _specialtyService;
  		private readonly IMapper _mapper;
  
- 		public SpecialitiesController(ISpecialityService specialityService, IMapper mapper)
+ 		public SpecialtiesController(ISpecialtyService specialtyService, IMapper mapper)
  		{
- 			_specialityService = specialityService;
+ 			_specialtyService = specialtyService;
  			_mapper = mapper;
  		}
- 
- 		[SwaggerOperation(Tags = new[] { "specialties" })]
+
+        [SwaggerOperation(
+            Summary = "List all specialties",
+            Description = "List of Specialties",
+            OperationId = "ListAllSpecialties",
+            Tags = new[] { "specialties" })]
+        [SwaggerResponse(200, "List of Specialties", typeof(IEnumerable<SpecialtyResource>))]
+        [AllowAnonymous]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<SpecialtyResource>), 200)]
+        public async Task<IEnumerable<SpecialtyResource>> GetAllAsync()
+        {
+            var specialties = await _specialtyService.ListAsync();
+            var resources = _mapper
+                .Map<IEnumerable<Specialty>, IEnumerable<SpecialtyResource>>(specialties);
+            return resources;
+        }
+
+        [SwaggerOperation(Tags = new[] { "specialties" })]
  		[HttpPost]
- 		[ProducesResponseType(typeof(SpecialityResource), 200)]
+ 		[ProducesResponseType(typeof(SpecialtyResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]
- 		public async Task<IActionResult> PostAsync([FromBody] SaveSpecialityResource resource)
+ 		public async Task<IActionResult> PostAsync([FromBody] SaveSpecialtyResource resource)
  		{
  			if (!ModelState.IsValid)
  				return BadRequest(ModelState.GetErrorMessages());
- 			var speciality = _mapper.Map<SaveSpecialityResource, Speciality>(resource);
- 			var result = await _specialityService.SaveAsync(speciality);
+ 			var specialty = _mapper.Map<SaveSpecialtyResource, Specialty>(resource);
+ 			var result = await _specialtyService.SaveAsync(specialty);
  
  			if (!result.Success)
  				return BadRequest(result.Message);
- 			var specialityResource = _mapper.Map<Speciality, SpecialityResource>(result.Resource);
- 			return Ok(specialityResource);
+ 			var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Resource);
+ 			return Ok(specialtyResource);
  		}
  
  		[SwaggerOperation(Tags = new[] { "specialties" })]
- 		[HttpPut("{specialityId}")]
- 		[ProducesResponseType(typeof(SpecialityResource), 200)]
+ 		[HttpPut("{specialtyId}")]
+ 		[ProducesResponseType(typeof(SpecialtyResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]
- 		public async Task<IActionResult> PutAsync(int specialityId, [FromBody] SaveSpecialityResource resource)
+ 		public async Task<IActionResult> PutAsync(int specialtyId, [FromBody] SaveSpecialtyResource resource)
  		{
  			if (!ModelState.IsValid)
  				return BadRequest(ModelState.GetErrorMessages());
  
- 			var speciality = _mapper.Map<SaveSpecialityResource, Speciality>(resource);
- 			var result = await _specialityService.UpdateAsync(specialityId, speciality);
+ 			var specialty = _mapper.Map<SaveSpecialtyResource, Specialty>(resource);
+ 			var result = await _specialtyService.UpdateAsync(specialtyId, specialty);
  
  			if (!result.Success)
  				return BadRequest(result.Message);
- 			var specialityResource = _mapper.Map<Speciality, SpecialityResource>(result.Resource);
- 			return Ok(specialityResource);
+ 			var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Resource);
+ 			return Ok(specialtyResource);
  		}
  
  		[SwaggerOperation(Tags = new[] { "specialties" })]
- 		[HttpGet("{specialityId}")]
- 		[ProducesResponseType(typeof(SpecialityResource), 200)]
+ 		[HttpGet("{specialtyId}")]
+ 		[ProducesResponseType(typeof(SpecialtyResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]
- 		public async Task<IActionResult> GetAsync(int specialityId)
+ 		public async Task<IActionResult> GetAsync(int specialtyId)
  		{
- 			var result = await _specialityService.GetByIdAsync(specialityId);
+ 			var result = await _specialtyService.GetByIdAsync(specialtyId);
  
  			if (!result.Success)
  				return BadRequest(result.Message);
  
- 			var specialityResource = _mapper.Map<Speciality, SpecialityResource>(result.Resource);
+ 			var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Resource);
  
- 			return Ok(specialityResource);
+ 			return Ok(specialtyResource);
  		}
  
  		[SwaggerOperation(Tags = new[] { "specialties" })]
- 		[HttpDelete("{specialityId}")]
- 		[ProducesResponseType(typeof(SpecialityResource), 200)]
+ 		[HttpDelete("{specialtyId}")]
+ 		[ProducesResponseType(typeof(SpecialtyResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]
- 		public async Task<IActionResult> DeleteAsync(int specialityId)
+ 		public async Task<IActionResult> DeleteAsync(int specialtyId)
  		{
- 			var result = await _specialityService.DeleteAsync(specialityId);
+ 			var result = await _specialtyService.DeleteAsync(specialtyId);
  			if (!result.Success)
  				return BadRequest(result.Message);
- 			var specialityResource = _mapper.Map<Speciality, SpecialityResource>(result.Resource);
- 			return Ok(specialityResource);
+ 			var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Resource);
+ 			return Ok(specialtyResource);
  		}
  	}
  }

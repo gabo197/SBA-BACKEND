@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SBA_BACKEND.Resources
 {
-    public class CustomerResource : UserResource
+    public class CustomerResource : ProfileResource
     {
 
     }

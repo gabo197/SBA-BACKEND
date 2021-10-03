@@ -10,16 +10,18 @@ using System;
 namespace SBA_BACKEND.Services
  {
  	public class CustomerService : ICustomerService
- 	{
- 		private readonly ICustomerRepository _customerRepository;
- 		private IUnitOfWork _unitOfWork;
- 		public CustomerService(ICustomerRepository object1, IUnitOfWork object2)
- 		{
- 			this._customerRepository = object1;
- 			this._unitOfWork = object2;
- 		}
- 
- 		public async Task<CustomerResponse> DeleteAsync(int id)
+    {
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IUserRepository userRepository;
+        private IUnitOfWork _unitOfWork;
+        public CustomerService(ICustomerRepository object1, IUnitOfWork object2, IUserRepository userRepository)
+        {
+            this._customerRepository = object1;
+            this._unitOfWork = object2;
+            this.userRepository = userRepository;
+        }
+
+        public async Task<CustomerResponse> DeleteAsync(int id)
  		{
  			var existingCustomer = await _customerRepository.FindById(id);
  
@@ -53,10 +55,14 @@ namespace SBA_BACKEND.Services
  			return await _customerRepository.ListAsync();
  		}
  
- 		public async Task<CustomerResponse> SaveAsync(Customer customer)
+ 		public async Task<CustomerResponse> SaveAsync(int userId, Customer customer)
  		{
- 			try
+            var existingUser = await userRepository.FindById(userId);
+            if (existingUser == null)
+                return new CustomerResponse("User not found");
+            try
  			{
+                customer.UserId = userId;
  				await _customerRepository.AddAsync(customer);
  				await _unitOfWork.CompleteAsync();
  				return new CustomerResponse(customer);
@@ -73,7 +79,11 @@ namespace SBA_BACKEND.Services
  			if (existingCustomer == null)
  				return new CustomerResponse("Customer not found");
 
-            //falta llenar los updates
+            existingCustomer.Description = customer.Description;
+            existingCustomer.ImageUrl = customer.ImageUrl;
+            existingCustomer.FirstName = customer.FirstName;
+            existingCustomer.LastName = customer.LastName;
+            existingCustomer.PhoneNumber = customer.PhoneNumber;
 
             try
             {

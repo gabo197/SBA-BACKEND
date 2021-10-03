@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace SBA_BACKEND.Domain.Models
 {
-    public class Speciality
+    public class Specialty
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
         //Many to Many reverse Relationship
-        public List<SpecialityTechnician> SpecialityTechnicians { get; set; }
+        public List<TechnicianSpecialty> TechnicianSpecialties { get; set; }
     }
 }

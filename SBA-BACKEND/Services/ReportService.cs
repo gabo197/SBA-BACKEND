@@ -13,14 +13,18 @@ using System;
  	public class ReportService : IReportService
  	{
  		private readonly IReportRepository _reportRepository;
- 		private IUnitOfWork _unitOfWork;
- 		public ReportService(IReportRepository object1, IUnitOfWork object2)
- 		{
- 			this._reportRepository = object1;
- 			this._unitOfWork = object2;
- 		}
- 
- 		public async Task<ReportResponse> DeleteAsync(int id)
+        private readonly ICustomerRepository customerRepository;
+        private readonly ITechnicianRepository technicianRepository;
+        private IUnitOfWork _unitOfWork;
+        public ReportService(IReportRepository object1, IUnitOfWork object2, ICustomerRepository customerRepository, ITechnicianRepository technicianRepository)
+        {
+            this._reportRepository = object1;
+            this._unitOfWork = object2;
+            this.customerRepository = customerRepository;
+            this.technicianRepository = technicianRepository;
+        }
+
+        public async Task<ReportResponse> DeleteAsync(int id)
  		{
  			var existingReport = await _reportRepository.FindById(id);
  
@@ -54,10 +58,18 @@ using System;
  			return await _reportRepository.ListAsync();
  		}
  
- 		public async Task<ReportResponse> SaveAsync(Report report)
+ 		public async Task<ReportResponse> SaveAsync(int customerId, int technicianId, Report report)
  		{
- 			try
+            var existingCustomer = await customerRepository.FindById(customerId);
+            if (existingCustomer == null)
+                return new ReportResponse("Customer not found");
+            var existingTechnician = await technicianRepository.FindById(technicianId);
+            if (existingTechnician == null)
+                return new ReportResponse("Technician not found");
+            try
  			{
+                report.CustomerId = customerId;
+                report.TechnicianId = technicianId;
  				await _reportRepository.AddAsync(report);
  				await _unitOfWork.CompleteAsync();
  				return new ReportResponse(report);
@@ -74,7 +86,7 @@ using System;
  			if (existingReport == null)
  				return new ReportResponse("Report not found");
 
-            //falta llenar los updates
+            existingReport.Description = report.Description;
 
             try
             {

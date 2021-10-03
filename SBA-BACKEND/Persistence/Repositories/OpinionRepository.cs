@@ -23,23 +23,14 @@ namespace SBA_BACKEND.Persistence.Repositories
 
 		public async Task<Opinion> FindById(int id)
 		{
-			List<Opinion> opinions = await _context.Opinions
-			   .Where(opinion => opinion.Id == id)
-			   .Include(opinion => opinion.Customer)
-			   .Include(opinion => opinion.Customer.District)
-			   .Include(opinion => opinion.Technician)
-			   .Include(opinion => opinion.Technician.District)
-			   .ToListAsync();
-			return opinions.First();
+			return await _context.Opinions.FindAsync(id);
 		}
 
 		public async Task<IEnumerable<Opinion>> ListAsync()
 		{
 			return await _context.Opinions
 				.Include(opinion => opinion.Customer)
-			    .Include(opinion => opinion.Customer.District)
 			    .Include(opinion => opinion.Technician)
-			    .Include(opinion => opinion.Technician.District)
 				.ToListAsync();
 		}
 

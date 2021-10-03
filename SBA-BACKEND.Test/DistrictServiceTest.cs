@@ -27,19 +27,19 @@ namespace SBA_BACKEND.Test
             mockDistrictRepository.Setup(r => r.FindById(districtId))
                 .Returns(Task.FromResult<District>(null));
 
-            var service = new DistrictService(mockDistrictRepository.Object, mockUnitOfWork.Object);
+            var service = new AddressService(mockDistrictRepository.Object, mockUnitOfWork.Object);
 
             // Act
-            DistrictResponse result = await service.GetByIdAsync(districtId);
+            AddressResponse result = await service.GetByIdAsync(districtId);
             var message = result.Message;
 
             // Assert
             message.Should().Be("District not found");
         }
 
-        private Mock<IDistrictRepository> GetDefaultIDistrictRepositoryInstance()
+        private Mock<IAddressRepository> GetDefaultIDistrictRepositoryInstance()
         {
-            return new Mock<IDistrictRepository>();
+            return new Mock<IAddressRepository>();
         }
 
         private Mock<IUnitOfWork> GetDefaultIUnitOfWorkInstance()

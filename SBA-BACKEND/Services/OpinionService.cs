@@ -11,16 +11,20 @@ using System;
  namespace SBA_BACKEND.Services
  {
  	public class OpinionService : IOpinionService
- 	{
- 		private readonly IOpinionRepository _opinionRepository;
- 		private IUnitOfWork _unitOfWork;
- 		public OpinionService(IOpinionRepository object1, IUnitOfWork object2)
- 		{
- 			this._opinionRepository = object1;
- 			this._unitOfWork = object2;
- 		}
- 
- 		public async Task<OpinionResponse> DeleteAsync(int id)
+    {
+        private readonly IOpinionRepository _opinionRepository;
+        private readonly ICustomerRepository customerRepository;
+        private readonly ITechnicianRepository technicianRepository;
+        private IUnitOfWork _unitOfWork;
+        public OpinionService(IOpinionRepository object1, IUnitOfWork object2, ITechnicianRepository technicianRepository, ICustomerRepository customerRepository)
+        {
+            this._opinionRepository = object1;
+            this._unitOfWork = object2;
+            this.technicianRepository = technicianRepository;
+            this.customerRepository = customerRepository;
+        }
+
+        public async Task<OpinionResponse> DeleteAsync(int id)
  		{
  			var existingOpinion = await _opinionRepository.FindById(id);
  
@@ -54,10 +58,18 @@ using System;
  			return await _opinionRepository.ListAsync();
  		}
  
- 		public async Task<OpinionResponse> SaveAsync(Opinion opinion)
+ 		public async Task<OpinionResponse> SaveAsync(int customerId, int technicianId, Opinion opinion)
  		{
- 			try
+            var existingCustomer = await customerRepository.FindById(customerId);
+            if (existingCustomer == null)
+                return new OpinionResponse("Customer not found");
+            var existingTechnician = await technicianRepository.FindById(technicianId);
+            if (existingTechnician == null)
+                return new OpinionResponse("Technician not found");
+            try
  			{
+                opinion.CustomerId = customerId;
+                opinion.TechnicianId = technicianId;
  				await _opinionRepository.AddAsync(opinion);
  				await _unitOfWork.CompleteAsync();
  				return new OpinionResponse(opinion);
@@ -74,7 +86,8 @@ using System;
  			if (existingOpinion == null)
  				return new OpinionResponse("Opinion not found");
 
-            //falta llenar los updates
+            existingOpinion.Description = opinion.Description;
+            existingOpinion.Stars = opinion.Stars;
 
             try
             {

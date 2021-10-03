@@ -11,11 +11,15 @@ using AutoMapper;
  using SBA_BACKEND.Resources;
  using SBA_BACKEND.API.Extensions;
  using Swashbuckle.Swagger;
- 
- namespace SBA_BACKEND.Controllers
+using Microsoft.AspNetCore.Authorization;
+using SBA_BACKEND.Domain.Services.Communications;
+
+namespace SBA_BACKEND.Controllers
  {
- 	[Route("api/user")]
- 	[ApiController]
+    [Authorize]
+    [Route("api/user")]
+    [Produces("application/json")]
+    [ApiController]
  	public class UsersController : ControllerBase
  	{
  		private readonly IUserService _userService;
@@ -26,8 +30,24 @@ using AutoMapper;
  			_userService = userService;
  			_mapper = mapper;
  		}
- 
- 		[SwaggerOperation(Tags = new[] { "users" })]
+
+        [SwaggerOperation(
+            Summary = "List all users",
+            Description = "List of Users",
+            OperationId = "ListAllUsers",
+            Tags = new[] { "users" })]
+        [SwaggerResponse(200, "List of Users", typeof(IEnumerable<UserResource>))]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<UserResource>), 200)]
+        public async Task<IEnumerable<UserResource>> GetAllAsync()
+        {
+            var users = await _userService.ListAsync();
+            var resources = _mapper
+                .Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
+            return resources;
+        }
+
+        [SwaggerOperation(Tags = new[] { "users" })]
  		[HttpPost]
  		[ProducesResponseType(typeof(UserResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]
@@ -43,8 +63,21 @@ using AutoMapper;
  			var userResource = _mapper.Map<User, UserResource>(result.Resource);
  			return Ok(userResource);
  		}
- 
- 		[SwaggerOperation(Tags = new[] { "users" })]
+
+        [AllowAnonymous]
+        [SwaggerOperation(Tags = new[] { "authentication" })]
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody] AuthenticationRequest request)
+        {
+            var response = await _userService.Authenticate(request);
+
+            if (response == null)
+                return BadRequest(new { message = "Invalid Username or Password" });
+
+            return Ok(response);
+        }
+
+        [SwaggerOperation(Tags = new[] { "users" })]
  		[HttpPut("{userId}")]
  		[ProducesResponseType(typeof(UserResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]

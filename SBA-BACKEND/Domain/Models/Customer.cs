@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SBA_BACKEND.Domain.Models
 {
-    public class Customer : User
+    public class Customer : Profile
     {
 
         //One to Many Reverse Relationship

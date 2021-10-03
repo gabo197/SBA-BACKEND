@@ -23,17 +23,12 @@ namespace SBA_BACKEND.Persistence.Repositories
 
 		public async Task<Technician> FindById(int id)
 		{
-			List<Technician> technicians = await _context.Technicians
-			   .Where(technician => technician.Id == id)
-			   .Include(technician => technician.District)
-			   .ToListAsync();
-			return technicians.First();
+			return await _context.Technicians.FindAsync(id);
 		}
 
 		public async Task<IEnumerable<Technician>> ListAsync()
 		{
 			return await _context.Technicians
-				.Include(technician => technician.District)
 				.ToListAsync();
 		}
 

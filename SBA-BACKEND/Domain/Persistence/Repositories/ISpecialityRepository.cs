@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SBA_BACKEND.Domain.Persistence.Repositories
 {
-	public interface ISpecialityRepository
+	public interface ISpecialtyRepository
 	{
-		Task<IEnumerable<Speciality>> ListAsync();
-		Task AddAsync(Speciality speciality);
-		Task<Speciality> FindById(int id);
-		void Update(Speciality speciality);
-		void Remove(Speciality speciality);
+		Task<IEnumerable<Specialty>> ListAsync();
+		Task AddAsync(Specialty specialty);
+		Task<Specialty> FindById(int id);
+		void Update(Specialty specialty);
+		void Remove(Specialty specialty);
 	}
 }

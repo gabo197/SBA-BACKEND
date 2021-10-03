@@ -6,13 +6,13 @@ using SBA_BACKEND.Domain.Models;
 
 namespace SBA_BACKEND.Domain.Services.Communications
 {
-	public class DistrictResponse : BaseResponse<District>
+	public class AddressResponse : BaseResponse<Address>
 	{
-		public DistrictResponse(District resource) : base(resource)
+		public AddressResponse(Address resource) : base(resource)
 		{
 		}
 
-		public DistrictResponse(string message) : base(message)
+		public AddressResponse(string message) : base(message)
 		{
 		}
 	}

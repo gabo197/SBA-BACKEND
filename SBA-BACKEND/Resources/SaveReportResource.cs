@@ -10,9 +10,5 @@ namespace SBA_BACKEND.Resources
     {
         [Required]
         public string Description { get; set; }
-        [Required]
-        public int TechnicianId { get; set; }
-        [Required]
-        public int CustomerId { get; set; }
     }
 }

@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SBA_BACKEND.Resources
+namespace SBA_BACKEND.Domain.Services.Communications
 {
-    public class SaveSpecialityTechnicianResource
+    public class AuthenticationRequest
     {
         [Required]
-        public int SpecialityId { get; set; }
+        public string Email { get; set; }
         [Required]
-        public int TechnicianId { get; set; }
+        public string Password { get; set; }
     }
 }

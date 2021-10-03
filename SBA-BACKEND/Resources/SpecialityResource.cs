@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SBA_BACKEND.Resources
 {
-    public class SpecialityResource
+    public class SpecialtyResource
     {
         public int Id { get; set; }
         public string Name { get; set; }

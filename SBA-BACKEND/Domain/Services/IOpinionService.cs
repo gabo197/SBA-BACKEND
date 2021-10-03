@@ -9,8 +9,9 @@ namespace SBA_BACKEND.Domain.Services
 {
 	public interface IOpinionService
 	{
+		Task<IEnumerable<Opinion>> ListAsync();
 		Task<OpinionResponse> GetByIdAsync(int id);
-		Task<OpinionResponse> SaveAsync(Opinion opinion);
+		Task<OpinionResponse> SaveAsync(int customerId, int technicianId, Opinion opinion);
 		Task<OpinionResponse> UpdateAsync(int id, Opinion opinion);
 		Task<OpinionResponse> DeleteAsync(int id);
 

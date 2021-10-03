@@ -23,18 +23,12 @@ namespace SBA_BACKEND.Persistence.Repositories
 
 		public async Task<Customer> FindById(int id)
 		{
-			List<Customer> customers = await _context.Customers
-			   .Where(customer => customer.Id == id)
-			   .Include(customer => customer.District)
-			   .ToListAsync();
-			return customers.First();
+			return await _context.Customers.FindAsync(id);
 		}
 
 		public async Task<IEnumerable<Customer>> ListAsync()
 		{
-			return await _context.Customers
-				.Include(customer => customer.District)
-				.ToListAsync();
+			return await _context.Customers.ToListAsync();
 		}
 
 		public void Remove(Customer customer)

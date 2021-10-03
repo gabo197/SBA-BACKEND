@@ -11,10 +11,12 @@ using AutoMapper;
  using SBA_BACKEND.Resources;
  using SBA_BACKEND.API.Extensions;
  using Swashbuckle.Swagger;
- 
- namespace SBA_BACKEND.Controllers
+using Microsoft.AspNetCore.Authorization;
+
+namespace SBA_BACKEND.Controllers
  {
- 	[Route("api/opinion")]
+    [Authorize]
+    [Route("api/opinion")]
  	[ApiController]
  	public class OpinionsController : ControllerBase
  	{
@@ -26,17 +28,34 @@ using AutoMapper;
  			_opinionService = opinionService;
  			_mapper = mapper;
  		}
- 
- 		[SwaggerOperation(Tags = new[] { "opinions" })]
+
+        [SwaggerOperation(
+            Summary = "List all opinions",
+            Description = "List of Opinions",
+            OperationId = "ListAllOpinions",
+            Tags = new[] { "opinions" })]
+        [SwaggerResponse(200, "List of Opinions", typeof(IEnumerable<OpinionResource>))]
+        [AllowAnonymous]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<OpinionResource>), 200)]
+        public async Task<IEnumerable<OpinionResource>> GetAllAsync()
+        {
+            var opinions = await _opinionService.ListAsync();
+            var resources = _mapper
+                .Map<IEnumerable<Opinion>, IEnumerable<OpinionResource>>(opinions);
+            return resources;
+        }
+
+        [SwaggerOperation(Tags = new[] { "opinions" })]
  		[HttpPost]
  		[ProducesResponseType(typeof(OpinionResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]
- 		public async Task<IActionResult> PostAsync([FromBody] SaveOpinionResource resource)
+ 		public async Task<IActionResult> PostAsync(int customerId, int technicianId, [FromBody] SaveOpinionResource resource)
  		{
  			if (!ModelState.IsValid)
  				return BadRequest(ModelState.GetErrorMessages());
  			var opinion = _mapper.Map<SaveOpinionResource, Opinion>(resource);
- 			var result = await _opinionService.SaveAsync(opinion);
+ 			var result = await _opinionService.SaveAsync(customerId, technicianId, opinion);
  
  			if (!result.Success)
  				return BadRequest(result.Message);

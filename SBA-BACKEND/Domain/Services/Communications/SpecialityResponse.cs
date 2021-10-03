@@ -6,13 +6,13 @@ using SBA_BACKEND.Domain.Models;
 
 namespace SBA_BACKEND.Domain.Services.Communications
 {
-	public class SpecialityResponse : BaseResponse<Speciality>
+	public class SpecialtyResponse : BaseResponse<Specialty>
 	{
-		public SpecialityResponse(Speciality resource) : base(resource)
+		public SpecialtyResponse(Specialty resource) : base(resource)
 		{
 		}
 
-		public SpecialityResponse(string message) : base(message)
+		public SpecialtyResponse(string message) : base(message)
 		{
 		}
 	}

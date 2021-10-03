@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace SBA_BACKEND.Resources
 {
-    public class SaveOpinionResource
+    public class SaveProfileResource
     {
         [Required]
-        public int Stars { get; set; }
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        [Required]
+        public string ImageUrl { get; set; }
         [Required]
         public string Description { get; set; }
+        [Required]
+        public string PhoneNumber { get; set; }
     }
 }

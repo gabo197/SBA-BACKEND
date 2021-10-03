@@ -6,21 +6,59 @@ using System;
  using SBA_BACKEND.Domain.Services.Communications;
  using SBA_BACKEND.Domain.Services;
  using SBA_BACKEND.Domain.Persistence.Repositories;
- 
- 
- namespace SBA_BACKEND.Services
+using SBA_BACKEND.Settings;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using Microsoft.Extensions.Options;
+
+namespace SBA_BACKEND.Services
  {
  	public class UserService : IUserService
  	{
+        private AppSettings appSettings;
  		private readonly IUserRepository _userRepository;
- 		private IUnitOfWork _unitOfWork;
- 		public UserService(IUserRepository object1, IUnitOfWork object2)
- 		{
- 			this._userRepository = object1;
- 			this._unitOfWork = object2;
- 		}
- 
- 		public async Task<UserResponse> DeleteAsync(int id)
+ 		private readonly IUnitOfWork _unitOfWork;
+        public UserService(IOptions<AppSettings> appSettings, IUserRepository object1, IUnitOfWork object2)
+        {
+            this.appSettings = appSettings.Value;
+            this._userRepository = object1;
+            this._unitOfWork = object2;
+        }
+
+        private string GenerateJwtToken(User user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddDays(14),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+
+        public async Task<AuthenticationResponse> Authenticate(AuthenticationRequest request)
+        {
+            var users = await _userRepository.ListAsync();
+            var user = users.SingleOrDefault(x => x.Email == request.Email
+            && x.Password == request.Password);
+
+            if (user == null) return null;
+
+            var token = GenerateJwtToken(user);
+            return new AuthenticationResponse(user, token);
+        }
+
+        public async Task<UserResponse> DeleteAsync(int id)
  		{
  			var existingUser = await _userRepository.FindById(id);
  
@@ -74,7 +112,8 @@ using System;
  			if (existingUser == null)
  				return new UserResponse("User not found");
 
-            //falta llenar los updates
+            existingUser.Email = user.Email;
+            existingUser.Password = user.Password;
 
             try
             {

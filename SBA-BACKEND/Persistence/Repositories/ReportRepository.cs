@@ -23,23 +23,14 @@ namespace SBA_BACKEND.Persistence.Repositories
 
 		public async Task<Report> FindById(int id)
 		{
-			List<Report> reports = await _context.Reports
-			   .Where(report => report.Id == id)
-			   .Include(report => report.Customer)
-			   .Include(report => report.Customer.District)
-			   .Include(report => report.Technician)
-			   .Include(report => report.Technician.District)
-			   .ToListAsync();
-			return reports.First();
+			return await _context.Reports.FindAsync(id);
 		}
 
 		public async Task<IEnumerable<Report>> ListAsync()
 		{
 			return await _context.Reports
 				.Include(report => report.Customer)
-			    .Include(report => report.Customer.District)
 			    .Include(report => report.Technician)
-			    .Include(report => report.Technician.District)
 				.ToListAsync();
 		}
 

@@ -9,8 +9,9 @@ namespace SBA_BACKEND.Domain.Services
 {
 	public interface ITechnicianService
 	{
+		Task<IEnumerable<Technician>> ListAsync();
 		Task<TechnicianResponse> GetByIdAsync(int id);
-		Task<TechnicianResponse> SaveAsync(Technician technician);
+		Task<TechnicianResponse> SaveAsync(int userId, Technician technician);
 		Task<TechnicianResponse> UpdateAsync(int id, Technician technician);
 		Task<TechnicianResponse> DeleteAsync(int id);
 

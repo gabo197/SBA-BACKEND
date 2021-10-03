@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace SBA_BACKEND.Mapping
 {
-    public class ResourceToModelProfile : Profile
+    public class ResourceToModelProfile : AutoMapper.Profile
     {
         public ResourceToModelProfile()
         {
             CreateMap<SaveCustomerResource, Customer>();
-            CreateMap<SaveDistrictResource, District>();
+            CreateMap<SaveAddressResource, Address>();
             CreateMap<SaveOpinionResource, Opinion>();
             CreateMap<SaveReportResource, Report>();
-            CreateMap<SaveSpecialityResource, Speciality>();
-            CreateMap<SaveSpecialityTechnicianResource, SpecialityTechnician>();
+            CreateMap<SaveSpecialtyResource, Specialty>();
             CreateMap<SaveTechnicianResource, Technician>();
             CreateMap<SaveUserResource, User>();
         }

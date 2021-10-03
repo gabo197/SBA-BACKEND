@@ -11,16 +11,18 @@ using System;
  namespace SBA_BACKEND.Services
  {
  	public class TechnicianService : ITechnicianService
- 	{
- 		private readonly ITechnicianRepository _technicianRepository;
- 		private IUnitOfWork _unitOfWork;
- 		public TechnicianService(ITechnicianRepository object1, IUnitOfWork object2)
- 		{
- 			this._technicianRepository = object1;
- 			this._unitOfWork = object2;
- 		}
- 
- 		public async Task<TechnicianResponse> DeleteAsync(int id)
+    {
+        private readonly ITechnicianRepository _technicianRepository;
+        private readonly IUserRepository userRepository;
+        private IUnitOfWork _unitOfWork;
+        public TechnicianService(ITechnicianRepository object1, IUnitOfWork object2, IUserRepository userRepository)
+        {
+            this._technicianRepository = object1;
+            this._unitOfWork = object2;
+            this.userRepository = userRepository;
+        }
+
+        public async Task<TechnicianResponse> DeleteAsync(int id)
  		{
  			var existingTechnician = await _technicianRepository.FindById(id);
  
@@ -54,10 +56,14 @@ using System;
  			return await _technicianRepository.ListAsync();
  		}
  
- 		public async Task<TechnicianResponse> SaveAsync(Technician technician)
+ 		public async Task<TechnicianResponse> SaveAsync(int userId, Technician technician)
  		{
- 			try
+            var existingUser = await userRepository.FindById(userId);
+            if (existingUser == null)
+                return new TechnicianResponse("User not found");
+            try
  			{
+                technician.UserId = userId;
  				await _technicianRepository.AddAsync(technician);
  				await _unitOfWork.CompleteAsync();
  				return new TechnicianResponse(technician);
@@ -74,7 +80,11 @@ using System;
  			if (existingTechnician == null)
  				return new TechnicianResponse("Technician not found");
 
-            //falta llenar los updates
+            existingTechnician.Description = technician.Description;
+            existingTechnician.ImageUrl = technician.ImageUrl;
+            existingTechnician.FirstName = technician.FirstName;
+            existingTechnician.LastName = technician.LastName;
+            existingTechnician.PhoneNumber = technician.PhoneNumber;
 
             try
             {

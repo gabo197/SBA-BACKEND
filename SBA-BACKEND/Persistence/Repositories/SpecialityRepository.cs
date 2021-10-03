@@ -9,40 +9,37 @@ using SBA_BACKEND.Domain.Persistence.Repositories;
 
 namespace SBA_BACKEND.Persistence.Repositories
 {
-	public class SpecialityRepository : BaseRepository, ISpecialityRepository
+	public class SpecialtyRepository : BaseRepository, ISpecialtyRepository
 	{
 
-		public SpecialityRepository(AppDbContext context) : base(context)
+		public SpecialtyRepository(AppDbContext context) : base(context)
 		{
 		}
 
-		public async Task AddAsync(Speciality speciality)
+		public async Task AddAsync(Specialty specialty)
 		{
-			await _context.Specialities.AddAsync(speciality);
+			await _context.Specialties.AddAsync(specialty);
 		}
 
-		public async Task<Speciality> FindById(int id)
+		public async Task<Specialty> FindById(int id)
 		{
-			List<Speciality> specialitys = await _context.Specialities
-			   .Where(speciality => speciality.Id == id)
-			   .ToListAsync();
-			return specialitys.First();
+			return await _context.Specialties.FindAsync(id);
 		}
 
-		public async Task<IEnumerable<Speciality>> ListAsync()
+		public async Task<IEnumerable<Specialty>> ListAsync()
 		{
-			return await _context.Specialities
+			return await _context.Specialties
 				.ToListAsync();
 		}
 
-		public void Remove(Speciality speciality)
+		public void Remove(Specialty specialty)
 		{
-			_context.Specialities.Remove(speciality);
+			_context.Specialties.Remove(specialty);
 		}
 
-		public void Update(Speciality speciality)
+		public void Update(Specialty specialty)
 		{
-			_context.Specialities.Update(speciality);
+			_context.Specialties.Update(specialty);
 		}
 	}
 }

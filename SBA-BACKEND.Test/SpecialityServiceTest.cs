@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace SBA_BACKEND.Test
 {
-    public class SpecialityServiceTest
+    public class SpecialtyServiceTest
     {
         [SetUp]
         public void Setup()
@@ -18,28 +18,28 @@ namespace SBA_BACKEND.Test
         }
 
         [Test]
-        public async Task GetByIdAsyncWhenNoSpecialityFoundReturnsSpecialityNotFoundResponse()
+        public async Task GetByIdAsyncWhenNoSpecialtyFoundReturnsSpecialtyNotFoundResponse()
         {
             // Arrange
-            var mockSpecialityRepository = GetDefaultISpecialityRepositoryInstance();
+            var mockSpecialtyRepository = GetDefaultISpecialtyRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
-            var specialityId = 1;
-            mockSpecialityRepository.Setup(r => r.FindById(specialityId))
-                .Returns(Task.FromResult<Speciality>(null));
+            var specialtyId = 1;
+            mockSpecialtyRepository.Setup(r => r.FindById(specialtyId))
+                .Returns(Task.FromResult<Specialty>(null));
 
-            var service = new SpecialityService(mockSpecialityRepository.Object, mockUnitOfWork.Object);
+            var service = new SpecialtyService(mockSpecialtyRepository.Object, mockUnitOfWork.Object);
 
             // Act
-            SpecialityResponse result = await service.GetByIdAsync(specialityId);
+            SpecialtyResponse result = await service.GetByIdAsync(specialtyId);
             var message = result.Message;
 
             // Assert
-            message.Should().Be("Speciality not found");
+            message.Should().Be("Specialty not found");
         }
 
-        private Mock<ISpecialityRepository> GetDefaultISpecialityRepositoryInstance()
+        private Mock<ISpecialtyRepository> GetDefaultISpecialtyRepositoryInstance()
         {
-            return new Mock<ISpecialityRepository>();
+            return new Mock<ISpecialtyRepository>();
         }
 
         private Mock<IUnitOfWork> GetDefaultIUnitOfWorkInstance()
