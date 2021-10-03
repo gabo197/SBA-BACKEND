@@ -1,21 +1,17 @@
 using AutoMapper;
- using Microsoft.AspNetCore.Http;
- using Microsoft.AspNetCore.Mvc;
- using System;
- using System.Collections.Generic;
- using System.Linq;
- using System.Threading.Tasks;
- using Swashbuckle.AspNetCore.Annotations;
- using SBA_BACKEND.Domain.Models;
- using SBA_BACKEND.Domain.Services;
- using SBA_BACKEND.Resources;
- using SBA_BACKEND.API.Extensions;
- using Swashbuckle.Swagger;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Swashbuckle.AspNetCore.Annotations;
+using SBA_BACKEND.Domain.Models;
+using SBA_BACKEND.Domain.Services;
+using SBA_BACKEND.Resources;
+using SBA_BACKEND.API.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using SBA_BACKEND.Domain.Services.Communications;
 
 namespace SBA_BACKEND.Controllers
- {
+{
     [Authorize]
     [Route("api/user")]
     [Produces("application/json")]

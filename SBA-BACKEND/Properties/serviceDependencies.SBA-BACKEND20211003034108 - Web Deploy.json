@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/sbabackenddbserver/databases/SBA-BACKEND_db",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:HerokuConnection2MySQL",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
