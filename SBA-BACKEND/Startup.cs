@@ -72,7 +72,7 @@ namespace SBA_BACKEND
 
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseMySQL(Configuration.GetConnectionString("HerokuConnectionMySQL"));
+                options.UseMySQL(Configuration.GetConnectionString("HerokuConnection2MySQL"));
                 //options.UseMySQL(Configuration.GetConnectionString("SmarterAspMySQLConnection"));
             });
 
