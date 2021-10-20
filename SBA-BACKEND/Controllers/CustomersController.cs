@@ -42,6 +42,7 @@ namespace SBA_BACKEND.Controllers
             return resources;
         }
 
+        [AllowAnonymous]
         [SwaggerOperation(Tags = new[] { "customers" })]
  		[HttpPost]
  		[ProducesResponseType(typeof(CustomerResource), 200)]

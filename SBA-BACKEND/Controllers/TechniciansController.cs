@@ -42,6 +42,7 @@ namespace SBA_BACKEND.Controllers
             return resources;
         }
 
+        [AllowAnonymous]
         [SwaggerOperation(Tags = new[] { "technicians" })]
  		[HttpPost]
  		[ProducesResponseType(typeof(TechnicianResource), 200)]

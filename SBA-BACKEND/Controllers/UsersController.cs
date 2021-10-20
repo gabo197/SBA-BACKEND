@@ -43,6 +43,7 @@ namespace SBA_BACKEND.Controllers
             return resources;
         }
 
+        [AllowAnonymous]
         [SwaggerOperation(Tags = new[] { "users" })]
  		[HttpPost]
  		[ProducesResponseType(typeof(UserResource), 200)]

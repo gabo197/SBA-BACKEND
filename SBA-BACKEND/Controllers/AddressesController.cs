@@ -42,6 +42,7 @@ namespace SBA_BACKEND.Controllers
             return resources;
         }
 
+        [AllowAnonymous]
         [SwaggerOperation(Tags = new[] { "addresses" })]
  		[HttpPost]
  		[ProducesResponseType(typeof(AddressResource), 200)]

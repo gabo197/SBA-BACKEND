@@ -53,7 +53,6 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
             builder.Entity<Profile>().Property(p => p.UserId).IsRequired();
             builder.Entity<Profile>().Property(p => p.FirstName).IsRequired();
             builder.Entity<Profile>().Property(p => p.LastName).IsRequired();
-            builder.Entity<Profile>().Property(p => p.ImageUrl).IsRequired();
             builder.Entity<Profile>().Property(p => p.PhoneNumber).IsRequired();
 
             //Constraints of Customer
