@@ -23,23 +23,24 @@ namespace SBA_BACKEND.Test
             // Arrange
             var mockCustomerRepository = GetDefaultICustomerRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var mockUserRepository = GetDefaultIUserRepositoryInstance();
             var customerId = 1;
             Customer c = new()
             {
-                Id = 1,
-                Name = "Jose"
+                UserId = 1,
+                FirstName = "Jose"
             };
             mockCustomerRepository.Setup(r => r.FindById(customerId))
                 .Returns(Task.FromResult<Customer>(c));
 
-            var service = new CustomerService(mockCustomerRepository.Object, mockUnitOfWork.Object);
+            var service = new CustomerService(mockCustomerRepository.Object, mockUnitOfWork.Object, mockUserRepository.Object);
 
             // Act
             CustomerResponse result = await service.GetByIdAsync(customerId);
             var message = result.Message;
 
             // Assert
-            message.Should().Be("Customer not found");
+            message.Should().Be("");
         }
 
         private Mock<ICustomerRepository> GetDefaultICustomerRepositoryInstance()
@@ -50,6 +51,11 @@ namespace SBA_BACKEND.Test
         private Mock<IUnitOfWork> GetDefaultIUnitOfWorkInstance()
         {
             return new Mock<IUnitOfWork>();
+        }
+
+        private Mock<IUserRepository> GetDefaultIUserRepositoryInstance()
+        {
+            return new Mock<IUserRepository>();
         }
     }
 }

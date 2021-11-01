@@ -1,16 +1,19 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
 using Moq;
-using FluentAssertions;
+using NUnit.Framework;
 using SBA_BACKEND.Domain.Models;
-using SBA_BACKEND.Domain.Services.Communications;
 using SBA_BACKEND.Domain.Persistence.Repositories;
+using SBA_BACKEND.Domain.Services.Communications;
 using SBA_BACKEND.Services;
-using System.Threading.Tasks;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SBA_BACKEND.Test
 {
-    public class TechnicianServiceTest
+    class AddressServiceTest
     {
         [SetUp]
         public void Setup()
@@ -21,26 +24,26 @@ namespace SBA_BACKEND.Test
         public async Task GetByIdAsyncWhenNoTechnicianFoundReturnsTechnicianNotFoundResponse()
         {
             // Arrange
-            var mockTechnicianRepository = GetDefaultITechnicianRepositoryInstance();
+            var mockAddressRepository = GetDefaultIAddressRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockUserRepository = GetDefaultIUserRepositoryInstance();
-            var technicianId = 1;
-            mockTechnicianRepository.Setup(r => r.FindById(technicianId))
-                .Returns(Task.FromResult<Technician>(null));
+            var addressId = 1;
+            mockAddressRepository.Setup(r => r.FindById(addressId))
+                .Returns(Task.FromResult<Address>(null));
 
-            var service = new TechnicianService(mockTechnicianRepository.Object, mockUnitOfWork.Object, mockUserRepository.Object);
+            var service = new AddressService(mockAddressRepository.Object, mockUnitOfWork.Object, mockUserRepository.Object);
 
             // Act
-            TechnicianResponse result = await service.GetByIdAsync(technicianId);
+            AddressResponse result = await service.GetByIdAsync(addressId);
             var message = result.Message;
 
             // Assert
-            message.Should().Be("Technician not found");
+            message.Should().Be("Address not found");
         }
 
-        private Mock<ITechnicianRepository> GetDefaultITechnicianRepositoryInstance()
+        private Mock<IAddressRepository> GetDefaultIAddressRepositoryInstance()
         {
-            return new Mock<ITechnicianRepository>();
+            return new Mock<IAddressRepository>();
         }
 
         private Mock<IUnitOfWork> GetDefaultIUnitOfWorkInstance()
