@@ -6,27 +6,27 @@ pipeline {
     stages {
         stage('Restore packages'){
            steps{
-               sh 'dotnet restore SBA-BACKEND.sln'
+               bat 'dotnet restore SBA-BACKEND.sln'
             }
          }
         stage('Clean'){
            steps{
-               sh 'dotnet clean SBA-BACKEND.sln --configuration Release'
+               bat 'dotnet clean SBA-BACKEND.sln --configuration Release'
             }
          }
         stage('Build'){
            steps{
-               sh 'dotnet build SBA-BACKEND.sln --configuration Release --no-restore'
+               bat 'dotnet build SBA-BACKEND.sln --configuration Release --no-restore'
             }
          }
         stage('Test: Unit Test'){
            steps {
-                sh 'dotnet test SBA-BACKEND.Test/SBA-BACKEND.Test.csproj --configuration Release --no-restore'
+                bat 'dotnet test SBA-BACKEND.Test/SBA-BACKEND.Test.csproj --configuration Release --no-restore'
              }
           }
         stage('Publish'){
              steps{
-               sh 'dotnet publish SBA-BACKEND/SBA-BACKEND.csproj --configuration Release --no-restore'
+               bat 'dotnet publish SBA-BACKEND/SBA-BACKEND.csproj --configuration Release --no-restore'
              }
         }
         /*stage('Deploy'){
