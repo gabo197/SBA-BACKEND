@@ -23,11 +23,12 @@ namespace SBA_BACKEND.Test
             // Arrange
             var mockSpecialtyRepository = GetDefaultISpecialtyRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var mockTechnicianSpecialtyRepository = GetDefaultITechnicianSpecialtyRepositoryInstance();
             var specialtyId = 1;
             mockSpecialtyRepository.Setup(r => r.FindById(specialtyId))
                 .Returns(Task.FromResult<Specialty>(null));
 
-            var service = new SpecialtyService(mockSpecialtyRepository.Object, mockUnitOfWork.Object);
+            var service = new SpecialtyService(mockSpecialtyRepository.Object, mockUnitOfWork.Object, mockTechnicianSpecialtyRepository.Object);
 
             // Act
             SpecialtyResponse result = await service.GetByIdAsync(specialtyId);
@@ -45,6 +46,11 @@ namespace SBA_BACKEND.Test
         private Mock<IUnitOfWork> GetDefaultIUnitOfWorkInstance()
         {
             return new Mock<IUnitOfWork>();
+        }
+
+        private Mock<ITechnicianSpecialtyRepository> GetDefaultITechnicianSpecialtyRepositoryInstance()
+        {
+            return new Mock<ITechnicianSpecialtyRepository>();
         }
     }
 }

@@ -23,11 +23,13 @@ namespace SBA_BACKEND.Test
             // Arrange
             var mockReportRepository = GetDefaultIReportRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var mockTechnicianRepository = GetDefaultITechnicianRepositoryInstance();
+            var mockCustomerRepository = GetDefaultICustomerRepositoryInstance();
             var reportId = 1;
             mockReportRepository.Setup(r => r.FindById(reportId))
                 .Returns(Task.FromResult<Report>(null));
 
-            var service = new ReportService(mockReportRepository.Object, mockUnitOfWork.Object);
+            var service = new ReportService(mockReportRepository.Object, mockUnitOfWork.Object, mockCustomerRepository.Object, mockTechnicianRepository.Object);
 
             // Act
             ReportResponse result = await service.GetByIdAsync(reportId);
@@ -45,6 +47,16 @@ namespace SBA_BACKEND.Test
         private Mock<IUnitOfWork> GetDefaultIUnitOfWorkInstance()
         {
             return new Mock<IUnitOfWork>();
+        }
+
+        private Mock<ITechnicianRepository> GetDefaultITechnicianRepositoryInstance()
+        {
+            return new Mock<ITechnicianRepository>();
+        }
+
+        private Mock<ICustomerRepository> GetDefaultICustomerRepositoryInstance()
+        {
+            return new Mock<ICustomerRepository>();
         }
     }
 }
