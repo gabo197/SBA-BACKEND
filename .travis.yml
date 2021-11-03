@@ -1,7 +1,7 @@
 languaje: csharp
 mono: none
 dotnet: 3.1
-solution: EF_Evo_u201723059.sln
+solution: SBA-BACKEND.sln
 
 install: 
   - dolnet restore
