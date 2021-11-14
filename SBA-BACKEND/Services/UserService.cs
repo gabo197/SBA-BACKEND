@@ -114,6 +114,7 @@ namespace SBA_BACKEND.Services
 
             existingUser.Email = user.Email;
             existingUser.Password = user.Password;
+            existingUser.UserType = user.UserType;
 
             try
             {

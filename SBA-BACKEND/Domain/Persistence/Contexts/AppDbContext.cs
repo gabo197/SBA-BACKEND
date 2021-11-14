@@ -44,6 +44,7 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
             builder.Entity<User>().Property(user => user.Id).IsRequired().ValueGeneratedOnAdd(); //Auto Generate a Primary Key
             builder.Entity<User>().Property(user => user.Email).IsRequired().HasMaxLength(50);
             builder.Entity<User>().Property(user => user.Password).IsRequired().HasMaxLength(150);
+            builder.Entity<User>().Property(user => user.UserType).IsRequired().HasMaxLength(11);
 
             //Constraints of Profile
             builder.Entity<Profile>().HasKey(p => p.UserId);
@@ -153,43 +154,71 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
                     {
                         Id = 100,
                         Email = "pedro.mustafa@gmail.com",
-                        Password = "mu574f4"
+                        Password = "mu574f4",
+                        UserType = "Customer"
                     },
                     new User
                     {
                         Id = 101,
                         Email = "leopoldo.murcia@gmail.com",
-                        Password = "murc14"
+                        Password = "murc14",
+                        UserType = "Customer"
                     },
                     new User
                     {
                         Id = 102,
                         Email = "beatriz.romero@gmail.com",
-                        Password = "r0m3r0"
+                        Password = "r0m3r0",
+                        UserType = "Customer"
                     },
                     new User
                     {
                         Id = 103,
                         Email = "lucy.flores@gmail.com",
-                        Password = "fl0r3s"
+                        Password = "fl0r3s",
+                        UserType = "Customer"
                     },
                     new User
                     {
                         Id = 104,
                         Email = "xabier.diaz@gmail.com",
-                        Password = "d14z"
+                        Password = "d14z",
+                        UserType = "Technician"
                     },
                     new User
                     {
                         Id = 105,
                         Email = "valeriano.cuellar@gmail.com",
-                        Password = "cu3ll4r"
+                        Password = "cu3ll4r",
+                        UserType = "Technician"
                     },
                     new User
                     {
                         Id = 106,
                         Email = "marta.tapia@gmail.com",
-                        Password = "74p15"
+                        Password = "74p15",
+                        UserType = "Technician"
+                    },
+                    new User
+                    {
+                        Id = 107,
+                        Email = "gabriel.ramirez@gmail.com",
+                        Password = "r4m1r3z",
+                        UserType = "Technician"
+                    },
+                    new User
+                    {
+                        Id = 108,
+                        Email = "cust",
+                        Password = "cust",
+                        UserType = "Customer"
+                    },
+                    new User
+                    {
+                        Id = 109,
+                        Email = "tech",
+                        Password = "tech",
+                        UserType = "Technician"
                     }
                 );
 
@@ -201,7 +230,7 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
                         FirstName = "Pedro",
                         LastName = "Mustafa",
                         PhoneNumber = "993724956",
-                        ImageUrl = "https://wl-genial.cf.tsp.li/resize/728x/jpg/f6e/ef6/b5b68253409b796f61f6ecd1f1.jpg",
+                        ImageUrl = "https://randomuser.me/api/portraits/men/60.jpg",
                         Description = ""
                     },
                     new Customer
@@ -210,7 +239,7 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
                         FirstName = "Leopoldo",
                         LastName = "Murcia",
                         PhoneNumber = "993724957",
-                        ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOFL8AwuGJlfjJrd6QZskD9LSbu5hqNRghaGpl_rqQGPcykkB6Pj3QKlzoEMN2_jtZzO8&usqp=CAU",
+                        ImageUrl = "https://randomuser.me/api/portraits/men/59.jpg",
                         Description = ""
                     },
                     new Customer
@@ -219,7 +248,7 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
                         FirstName = "Beatriz",
                         LastName = "Romero",
                         PhoneNumber = "993724958",
-                        ImageUrl = "https://i.pinimg.com/736x/c3/c7/ce/c3c7ce0b340ef81623a2b391ead722c9.jpg",
+                        ImageUrl = "https://randomuser.me/api/portraits/women/1.jpg",
                         Description = ""
                     },
                     new Customer
@@ -228,7 +257,16 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
                         FirstName = "Luciana",
                         LastName = "Flores",
                         PhoneNumber = "993724959",
-                        ImageUrl = "https://i.pinimg.com/474x/c0/cd/df/c0cddff8bce605d57a003ae1d98026ce.jpg",
+                        ImageUrl = "https://randomuser.me/api/portraits/women/2.jpg",
+                        Description = ""
+                    },
+                    new Customer
+                    {
+                        UserId = 108,
+                        FirstName = "Jorge",
+                        LastName = "Pérez",
+                        PhoneNumber = "968537019",
+                        ImageUrl = "https://randomuser.me/api/portraits/men/15.jpg",
                         Description = ""
                     }
                 );
@@ -328,7 +366,7 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
                         Id = 100,
                         CustomerId = 103,
                         TechnicianId = 105,
-                        Description = "acoso sexual"
+                        Description = "acoso"
                     }
                 );
 
@@ -337,7 +375,7 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
                     new Specialty
                     {
                         Id = 100,
-                        Name = "Gasfitero"
+                        Name = "Gasfitería"
                     },
                     new Specialty
                     {
@@ -347,7 +385,17 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
                     new Specialty
                     {
                         Id = 102,
-                        Name = "Jardinero"
+                        Name = "Jardinería"
+                    },
+                    new Specialty
+                    {
+                        Id = 103,
+                        Name = "Pintura"
+                    },
+                    new Specialty
+                    {
+                        Id = 104,
+                        Name = "Limpieza"
                     }
                 );
 
@@ -359,7 +407,7 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
                         FirstName = "Xabier",
                         LastName = "Díaz",
                         PhoneNumber = "926503728",
-                        ImageUrl = "https://scontent.flim18-2.fna.fbcdn.net/v/t1.6435-9/67204430_1735072573458413_4218327998354423808_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=CVIMPaSZ98UAX9IKXV8&_nc_ht=scontent.flim18-2.fna&oh=69d3a868d4c40cd653aad03fd9dc9050&oe=617F9A17",
+                        ImageUrl = "https://randomuser.me/api/portraits/men/54.jpg",
                         Description = "Gasfitero con 10 años de experiencia"
                     },
                     new Technician
@@ -368,7 +416,7 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
                         FirstName = "Valeriano",
                         LastName = "Cuellar",
                         PhoneNumber = "926503721",
-                        ImageUrl = "https://i.pinimg.com/originals/79/2f/3e/792f3efaa465b09469e0b1b6b520daa6.jpg",
+                        ImageUrl = "https://randomuser.me/api/portraits/men/20.jpg",
                         Description = "Electricista con 10 años de experiencia"
                     },
                     new Technician
@@ -377,8 +425,53 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
                         FirstName = "Marta",
                         LastName = "Tapia",
                         PhoneNumber = "926503728",
-                        ImageUrl = "https://www.okchicas.com/wp-content/uploads/2018/01/Poses-para-una-buena-foto-de-perfil-11.jpg",
+                        ImageUrl = "https://randomuser.me/api/portraits/women/40.jpg",
                         Description = "Jardinera con 10 años de experiencia"
+                    },
+                    new Technician
+                    {
+                        UserId = 107,
+                        FirstName = "Gabriel",
+                        LastName = "Ramirez",
+                        PhoneNumber = "926503728",
+                        ImageUrl = "https://randomuser.me/api/portraits/men/86.jpg",
+                        Description = "Limpiador con 6 años de experiencia"
+                    },
+                    new Technician
+                    {
+                        UserId = 109,
+                        FirstName = "Manuel",
+                        LastName = "Salinas",
+                        PhoneNumber = "945812940",
+                        ImageUrl = "https://randomuser.me/api/portraits/men/87.jpg",
+                        Description = "Pintor con 5 años de experiencia"
+                    }
+                );
+            builder.Entity<TechnicianSpecialty>().HasData(
+                    new TechnicianSpecialty
+                    {
+                        TechnicianId = 104,
+                        SpecialtyId = 100
+                    },
+                    new TechnicianSpecialty
+                    {
+                        TechnicianId = 105,
+                        SpecialtyId = 101
+                    },
+                    new TechnicianSpecialty
+                    {
+                        TechnicianId = 106,
+                        SpecialtyId = 102
+                    },
+                    new TechnicianSpecialty
+                    {
+                        TechnicianId = 107,
+                        SpecialtyId = 104
+                    },
+                    new TechnicianSpecialty
+                    {
+                        TechnicianId = 109,
+                        SpecialtyId = 103
                     }
                 );
         }
