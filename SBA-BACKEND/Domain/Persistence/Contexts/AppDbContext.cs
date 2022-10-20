@@ -20,6 +20,8 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
         public DbSet<TechnicianSpecialty> TechnicianSpecialties { get; set; }
         public DbSet<Technician> Technicians { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -36,6 +38,8 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
             //builder.Entity<Technician>().ToTable("Technicians");
             builder.Entity<User>().ToTable("Users");
             builder.Entity<Profile>().ToTable("Profiles");
+            builder.Entity<Appointment>().ToTable("Appointments");
+            builder.Entity<PaymentMethod>().ToTable("PaymentMethods");
 
             //CONSTRAINTS
 
@@ -77,6 +81,18 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
             builder.Entity<Address>().Property(address => address.District).IsRequired().HasMaxLength(50);
             builder.Entity<Address>().Property(address => address.FullAddress).IsRequired().HasMaxLength(100);
 
+            //Constraints of Appointment
+            builder.Entity<Appointment>().HasKey(appointment => appointment.AppointmentId); //Primary Key
+            builder.Entity<Appointment>().Property(appointment => appointment.Status).IsRequired().HasMaxLength(50);
+            builder.Entity<Appointment>().Property(appointment => appointment.Description).IsRequired().HasMaxLength(50);
+            builder.Entity<Appointment>().Property(appointment => appointment.AppointmentId).IsRequired().HasMaxLength(50);
+            builder.Entity<Appointment>().Property(appointment => appointment.Valorization).IsRequired().HasMaxLength(100);
+
+            //Constraints of PaymentMethod
+            builder.Entity<PaymentMethod>().HasKey(paymentMethod => paymentMethod.PaymentMethodId); //Primary Key
+            builder.Entity<PaymentMethod>().Property(paymentMethod => paymentMethod.PaymentMethodId).IsRequired().HasMaxLength(50);
+            builder.Entity<PaymentMethod>().Property(paymentMethod => paymentMethod.Name).IsRequired().HasMaxLength(50);
+
             //Constraints of Opinion
             builder.Entity<Opinion>().HasKey(opinion => opinion.Id); //Primary Key
             builder.Entity<Opinion>().Property(opinion => opinion.Id).IsRequired().ValueGeneratedOnAdd(); //Auto Generate a Primary Key
@@ -109,6 +125,23 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
                 .HasOne(user => user.Address)
                 .WithOne(address => address.User)
                 .HasForeignKey<Address>(address => address.UserId);
+
+            //Relationships of Appointment
+
+            builder.Entity<Appointment>() //One to Many with Customer
+                .HasOne(appointment => appointment.Customer)
+                .WithMany(customer => customer.Appointments)
+                .HasForeignKey(appointment => appointment.CustomerId);
+
+            builder.Entity<Appointment>() //One to Many with Technician
+                .HasOne(appointment => appointment.Technician)
+                .WithMany(technician => technician.Appointments)
+                .HasForeignKey(appointment => appointment.TechnicianId);
+
+            builder.Entity<Appointment>()
+                .HasOne(appointment => appointment.PaymentMethod)
+                .WithMany(paymentMethod => paymentMethod.Appointments)
+                .HasForeignKey(appointment => appointment.PaymentMethodId);
 
             //Relationships of Opinion
 
@@ -328,6 +361,25 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
                         Province = "Lima",
                         District = "San Isidro",
                         FullAddress = "Calle Las Flores 459"
+                    }
+                );
+
+            builder.Entity<PaymentMethod>().HasData
+                (
+                    new PaymentMethod
+                    {
+                        PaymentMethodId = 1,
+                        Name = "Monedero Electrónico"
+                    },
+                    new PaymentMethod
+                    {
+                        PaymentMethodId = 2,
+                        Name = "Efectivo"
+                    },
+                    new PaymentMethod
+                    {
+                        PaymentMethodId = 3,
+                        Name = "Tarjeta"
                     }
                 );
 

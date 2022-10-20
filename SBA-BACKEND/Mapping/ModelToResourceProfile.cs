@@ -14,6 +14,7 @@ namespace SBA_BACKEND.Mapping
         {
             CreateMap<Customer, CustomerResource>();
             CreateMap<Address, AddressResource>();
+            CreateMap<Appointment, AppointmentResource>();
             CreateMap<Opinion, OpinionResource>();
             CreateMap<Report, ReportResource>();
             CreateMap<Specialty, SpecialtyResource>();
