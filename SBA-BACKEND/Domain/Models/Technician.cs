@@ -15,5 +15,6 @@ namespace SBA_BACKEND.Domain.Models
 
         //One to Many Reverse Relationship
         public IList<Report> Reports { get; set; } = new List<Report>();
+        public IList<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }
