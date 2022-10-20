@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SBA_BACKEND.Domain.Models;
 using SBA_BACKEND.Domain.Persistence.Contexts;
 using SBA_BACKEND.Domain.Persistence.Repositories;
 using SBA_BACKEND.Domain.Services;
@@ -87,6 +88,8 @@ namespace SBA_BACKEND
             services.AddScoped<ITechnicianRepository, TechnicianRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
 
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IAddressService, AddressService>();
@@ -95,6 +98,8 @@ namespace SBA_BACKEND
             services.AddScoped<ISpecialtyService, SpecialtyService>();
             services.AddScoped<ITechnicianSpecialtyService, TechnicianSpecialtyService>();
             services.AddScoped<ITechnicianService, TechnicianService>();
+            services.AddScoped<IPaymentMethodService, PaymentMethodService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IUserService, UserService>();
 
             // Apply Endpoints Naming Convention

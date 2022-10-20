@@ -44,7 +44,7 @@ namespace SBA_BACKEND.Controllers
 
         [AllowAnonymous]
         [SwaggerOperation(Tags = new[] { "customers" })]
- 		[HttpPost]
+ 		[HttpPost("{userId}")]
  		[ProducesResponseType(typeof(CustomerResource), 200)]
  		[ProducesResponseType(typeof(BadRequestResult), 404)]
  		public async Task<IActionResult> PostAsync(int userId, [FromBody] SaveCustomerResource resource)

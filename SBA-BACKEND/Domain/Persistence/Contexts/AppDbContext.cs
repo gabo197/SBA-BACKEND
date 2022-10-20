@@ -86,6 +86,7 @@ namespace SBA_BACKEND.Domain.Persistence.Contexts
             builder.Entity<Appointment>().Property(appointment => appointment.Status).IsRequired().HasMaxLength(50);
             builder.Entity<Appointment>().Property(appointment => appointment.Description).IsRequired().HasMaxLength(50);
             builder.Entity<Appointment>().Property(appointment => appointment.AppointmentId).IsRequired().HasMaxLength(50);
+            builder.Entity<Appointment>().Property(appointment => appointment.AppointmentDate).IsRequired();
             builder.Entity<Appointment>().Property(appointment => appointment.Valorization).IsRequired().HasMaxLength(100);
 
             //Constraints of PaymentMethod

@@ -91,8 +91,13 @@ namespace SBA_BACKEND.Services
  		{
  			return await _userRepository.ListAsync();
  		}
- 
- 		public async Task<UserResponse> SaveAsync(User user)
+
+        public async Task<List<string>> ListAllEmailsAsync()
+        {
+            return await _userRepository.ListAllEmailsAsync();
+        }
+
+        public async Task<UserResponse> SaveAsync(User user)
  		{
  			try
  			{

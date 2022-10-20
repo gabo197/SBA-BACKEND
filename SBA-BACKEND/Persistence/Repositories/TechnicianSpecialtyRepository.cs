@@ -32,7 +32,7 @@ namespace SBA_BACKEND.Persistence.Repositories
 
         public async Task<TechnicianSpecialty> FindByTechnicianIdAndSpecialtyId(int technicianId, int specialtyId)
         {
-            return await _context.TechnicianSpecialties.FindAsync(technicianId, specialtyId);
+            return await _context.TechnicianSpecialties.Include(ts => ts.Specialty).FirstOrDefaultAsync(x=> x.TechnicianId == technicianId && x.SpecialtyId == specialtyId);
         }
 
         public async Task<IEnumerable<TechnicianSpecialty>> ListAsync()

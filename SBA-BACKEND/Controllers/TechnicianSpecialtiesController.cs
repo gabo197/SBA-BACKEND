@@ -34,6 +34,8 @@ namespace SBA_BACKEND.Controllers
         }
 
         [HttpPost("{specialtyId}")]
+        [ProducesResponseType(typeof(SpecialtyResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> AssignTechnicianSpecialty(int userId, int specialtyId)
         {
             var result = await technicianSpecialtyService.AssignTechnicianSpecialtyAsync(userId, specialtyId);
@@ -45,6 +47,8 @@ namespace SBA_BACKEND.Controllers
         }
 
         [HttpDelete("{specialtyId}")]
+        [ProducesResponseType(typeof(SpecialtyResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> UnassignTechnicianSpecialty(int userId, int specialtyId)
         {
             var result = await technicianSpecialtyService.UnassignTechnicianSpecialtyAsync(userId, specialtyId);

@@ -8,7 +8,7 @@ namespace SBA_BACKEND.Domain.Persistence.Repositories
 {	public interface ICustomerRepository
 	{
 		Task<IEnumerable<Customer>> ListAsync();
-		Task AddAsync(Customer customer);
+        Task AddAsync(Customer customer);
 		Task<Customer> FindById(int id);
 		void Update(Customer customer);
 		void Remove(Customer customer);

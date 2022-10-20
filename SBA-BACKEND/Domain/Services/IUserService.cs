@@ -11,7 +11,8 @@ namespace SBA_BACKEND.Domain.Services
 	{
 		Task<AuthenticationResponse> Authenticate(AuthenticationRequest request);
 		Task<IEnumerable<User>> ListAsync();
-		Task<UserResponse> GetByIdAsync(int id);
+        Task<List<string>> ListAllEmailsAsync();
+        Task<UserResponse> GetByIdAsync(int id);
 		Task<UserResponse> SaveAsync(User user);
 		Task<UserResponse> UpdateAsync(int id, User user);
 		Task<UserResponse> DeleteAsync(int id);

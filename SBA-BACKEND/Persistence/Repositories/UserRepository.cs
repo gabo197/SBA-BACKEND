@@ -33,7 +33,12 @@ namespace SBA_BACKEND.Persistence.Repositories
 				.ToListAsync();
 		}
 
-		public void Remove(User user)
+        public async Task<List<string>> ListAllEmailsAsync()
+        {
+            return await _context.Users.Select(x => x.Email).ToListAsync();
+        }
+
+        public void Remove(User user)
 		{
 			_context.Users.Remove(user);
 		}

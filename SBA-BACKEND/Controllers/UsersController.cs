@@ -44,6 +44,21 @@ namespace SBA_BACKEND.Controllers
         }
 
         [AllowAnonymous]
+        [SwaggerOperation(
+            Summary = "List all user emails",
+            Description = "List of User emails",
+            OperationId = "ListAllUserEmails",
+            Tags = new[] { "users" })]
+        [SwaggerResponse(200, "List of User Emails", typeof(List<string>))]
+        [HttpGet, Route("ListAllEmails")]
+        [ProducesResponseType(typeof(IEnumerable<UserResource>), 200)]
+        public async Task<List<string>> GetAllEmailsAsync()
+        {
+            var users = await _userService.ListAllEmailsAsync();
+            return users;
+        }
+
+        [AllowAnonymous]
         [SwaggerOperation(Tags = new[] { "users" })]
  		[HttpPost]
  		[ProducesResponseType(typeof(UserResource), 200)]
