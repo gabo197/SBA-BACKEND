@@ -1,14 +1,14 @@
 ﻿using NUnit.Framework;
 using Moq;
 using FluentAssertions;
-using SBA_BACKEND.Domain.Models;
-using SBA_BACKEND.Domain.Services.Communications;
 using SBA_BACKEND.Domain.Persistence.Repositories;
 using SBA_BACKEND.Services;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using SBA_BACKEND.Settings;
 using Microsoft.Extensions.Options;
+using SBA_BACKEND.User.User.Domain.AgreggatesModel;
+using SBA_BACKEND.User.User.API.Services.Communications;
 
 namespace SBA_BACKEND.Test
 {

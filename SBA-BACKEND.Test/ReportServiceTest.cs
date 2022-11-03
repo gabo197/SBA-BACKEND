@@ -2,11 +2,14 @@
 using Moq;
 using FluentAssertions;
 using SBA_BACKEND.Domain.Models;
-using SBA_BACKEND.Domain.Services.Communications;
 using SBA_BACKEND.Domain.Persistence.Repositories;
 using SBA_BACKEND.Services;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using SBA_BACKEND.Technician.Technician.Domain.AgreggatesModel;
+using SBA_BACKEND.Customer.Customer.Domain.AgreggatesModel;
+using SBA_BACKEND.Report.Report.Domain.AgreggatesModel;
+using SBA_BACKEND.Report.Report.API.Services.Communications;
 
 namespace SBA_BACKEND.Test
 {

@@ -1,10 +1,11 @@
 ﻿using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using SBA_BACKEND.Domain.Models;
 using SBA_BACKEND.Domain.Persistence.Repositories;
-using SBA_BACKEND.Domain.Services.Communications;
 using SBA_BACKEND.Services;
+using SBA_BACKEND.User.AgreggatesModel;
+using SBA_BACKEND.User.User.API.Services.Communications;
+using SBA_BACKEND.User.User.Domain.AgreggatesModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
