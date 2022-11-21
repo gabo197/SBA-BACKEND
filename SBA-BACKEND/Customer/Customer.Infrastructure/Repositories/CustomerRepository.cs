@@ -28,7 +28,7 @@ namespace SBA_BACKEND.Customer.Customer.Infrastructure.Repositories
 
         public async Task<IEnumerable<Customer.Domain.AgreggatesModel.Customer>> ListAsync()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Customers.Include(x => x.User).Include(x => x.User.Address).ToListAsync();
         }
 
         public void Remove(Customer.Domain.AgreggatesModel.Customer customer)

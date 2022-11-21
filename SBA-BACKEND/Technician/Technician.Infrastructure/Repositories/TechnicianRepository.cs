@@ -23,12 +23,21 @@ namespace SBA_BACKEND.Technician.Technician.Infrastructure.Repositories
 
         public async Task<Technician.Domain.AgreggatesModel.Technician> FindById(int id)
         {
-            return await _context.Technicians.Include(x => x.User).Include(x => x.User.Address).FirstOrDefaultAsync(x => x.UserId == id);
+            return await _context.Technicians
+                .Include(x => x.User)
+                .Include(x => x.User.Address)
+                .Include(x => x.TechnicianSpecialties)
+                .ThenInclude(x => x.Specialty)
+                .FirstOrDefaultAsync(x => x.UserId == id);
         }
 
         public async Task<IEnumerable<Technician.Domain.AgreggatesModel.Technician>> ListAsync()
         {
             return await _context.Technicians
+                .Include(x => x.User)
+                .Include(x => x.User.Address)
+                .Include(x => x.TechnicianSpecialties)
+                .ThenInclude(x => x.Specialty)
                 .ToListAsync();
         }
 

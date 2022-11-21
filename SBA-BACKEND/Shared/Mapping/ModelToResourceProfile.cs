@@ -25,6 +25,7 @@ namespace SBA_BACKEND.Mapping
             CreateMap<Opinion, OpinionResource>();
             CreateMap<Report.Report.Domain.AgreggatesModel.Report, ReportResource>();
             CreateMap<Specialty, SpecialtyResource>();
+            CreateMap<TechnicianSpecialty, TechnicianSpecialtyResource>();
             CreateMap<Technician.Technician.Domain.AgreggatesModel.Technician, TechnicianResource>();
             CreateMap<User.User.Domain.AgreggatesModel.User, UserResource>();
         }
