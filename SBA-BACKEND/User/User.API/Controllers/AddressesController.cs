@@ -44,7 +44,7 @@ namespace SBA_BACKEND.User.User.API.Controllers
 
         [AllowAnonymous]
         [SwaggerOperation(Tags = new[] { "addresses" })]
-        [HttpPost]
+        [HttpPost("{userId}")]
         [ProducesResponseType(typeof(AddressResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> PostAsync(int userId, [FromBody] SaveAddressResource resource)
