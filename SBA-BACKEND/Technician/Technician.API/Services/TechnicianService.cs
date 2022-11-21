@@ -55,6 +55,11 @@ namespace SBA_BACKEND.Technician.Technician.API.Services
             return await _technicianRepository.ListAsync();
         }
 
+        public async Task<IEnumerable<Domain.AgreggatesModel.Technician>> ListTechniciansBySpecialtyId(int specialtyId)
+        {
+            return await _technicianRepository.ListBySpecialty(specialtyId);
+        }
+
         public async Task<TechnicianResponse> SaveAsync(int userId, Technician.Domain.AgreggatesModel.Technician technician)
         {
             var existingUser = await userRepository.FindById(userId);

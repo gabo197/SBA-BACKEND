@@ -8,6 +8,7 @@ namespace SBA_BACKEND.Technician.Technician.Domain.AgreggatesModel
     public interface ITechnicianRepository
     {
         Task<IEnumerable<Technician>> ListAsync();
+        Task<IEnumerable<Technician>> ListBySpecialty(int specialtyId);
         Task AddAsync(Technician technician);
         Task<Technician> FindById(int id);
         void Update(Technician technician);

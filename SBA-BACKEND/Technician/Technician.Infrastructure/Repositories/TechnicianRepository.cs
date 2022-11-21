@@ -41,6 +41,17 @@ namespace SBA_BACKEND.Technician.Technician.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Domain.AgreggatesModel.Technician>> ListBySpecialty(int specialtyId)
+        {
+            return await _context.Technicians
+                .Where(x=>x.TechnicianSpecialties.Any(s => s.SpecialtyId == specialtyId))
+                .Include(x => x.User)
+                .Include(x => x.User.Address)
+                .Include(x => x.TechnicianSpecialties)
+                .ThenInclude(x => x.Specialty)
+                .ToListAsync();
+        }
+
         public void Remove(Technician.Domain.AgreggatesModel.Technician technician)
         {
             _context.Technicians.Remove(technician);

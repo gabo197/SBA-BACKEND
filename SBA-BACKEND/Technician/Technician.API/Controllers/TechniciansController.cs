@@ -41,6 +41,23 @@ namespace SBA_BACKEND.Technician.Technician.API.Controllers
             return resources;
         }
 
+        [SwaggerOperation(
+            Summary = "List all technicians by specialtyId",
+            Description = "List of Technicians by specialtyId",
+            OperationId = "ListTechniciansBySpecialtyId",
+            Tags = new[] { "technicians" })]
+        [SwaggerResponse(200, "List of Technicians", typeof(IEnumerable<TechnicianResource>))]
+        [AllowAnonymous]
+        [HttpGet, Route("GetTechniciansBySpecialtyId/{specialtyId}")]
+        [ProducesResponseType(typeof(IEnumerable<TechnicianResource>), 200)]
+        public async Task<IEnumerable<TechnicianResource>> GetTechniciansBySpecialtyIdAsync(int specialtyId)
+        {
+            var technicians = await _technicianService.ListTechniciansBySpecialtyId(specialtyId);
+            var resources = _mapper
+                .Map<IEnumerable<Technician.Domain.AgreggatesModel.Technician>, IEnumerable<TechnicianResource>>(technicians);
+            return resources;
+        }
+
         [AllowAnonymous]
         [SwaggerOperation(Tags = new[] { "technicians" })]
         [HttpPost("{userId}")]
