@@ -8,6 +8,7 @@ namespace SBA_BACKEND.User.User.API.Resources
     public class ProfileResource
     {
         public int UserId { get; set; }
+        public UserResource User { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ImageUrl { get; set; }

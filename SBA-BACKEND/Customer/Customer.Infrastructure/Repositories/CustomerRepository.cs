@@ -23,7 +23,7 @@ namespace SBA_BACKEND.Customer.Customer.Infrastructure.Repositories
 
         public async Task<Customer.Domain.AgreggatesModel.Customer> FindById(int id)
         {
-            return await _context.Customers.FindAsync(id);
+            return await _context.Customers.Include(x => x.User).Include(x => x.User.Address).FirstOrDefaultAsync(x => x.UserId == id);
         }
 
         public async Task<IEnumerable<Customer.Domain.AgreggatesModel.Customer>> ListAsync()
